@@ -23,5 +23,17 @@ export class Paciente {
 
     @Column()
     @IsNotEmpty()
+    fechaDeNacimiento: Date;
+
+    @Column()
+    @IsNotEmpty()
     direccion: string;
+
+    @Column()
+    @IsNotEmpty()
+    localidad: string;
+
+    @Column()
+    @IsNotEmpty()
+    telefono: string;
 }

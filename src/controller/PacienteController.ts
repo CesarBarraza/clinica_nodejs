@@ -2,9 +2,6 @@ import { getRepository } from 'typeorm';
 import { Response, Request, json } from 'express';
 import { Paciente } from '../entity/Paciente';
 import { validate } from 'class-validator';
-import { User } from '../entity/User';
-import { userInfo } from 'os';
-import { read } from 'fs';
 
 class PacienteController{
     static getPacientes = async(req: Request, res: Response) => {
@@ -31,13 +28,16 @@ class PacienteController{
     }
 
     static createPaciente = async(req: Request, res: Response) => {
-        const { nombre, apellido, dni, direccion } = req.body;
+        const { nombre, apellido, dni, fechaDeNacimiento, direccion, localidad, telefono } = req.body;
         const paciente = new Paciente();
 
         paciente.nombre = nombre;
         paciente.apellido = apellido;
         paciente.dni = dni;
+        paciente.fechaDeNacimiento = fechaDeNacimiento;
         paciente.direccion = direccion;
+        paciente.localidad = localidad;
+        paciente.telefono = telefono;
 
         //validar
         const errors = await validate(paciente, { validationError: { target: false, value: false }});
@@ -58,7 +58,7 @@ class PacienteController{
 
     static editPaciente = async(req: Request, res: Response) => {
         const { id } = req.params;
-        const { nombre, apellido, direccion } = req.body;
+        const { nombre, apellido, dni, fechaDeNacimiento, direccion, localidad, telefono } = req.body;
         let paciente: Paciente;
         const pacienteRepository = getRepository(Paciente);
 
@@ -66,7 +66,11 @@ class PacienteController{
             paciente = await pacienteRepository.findOneOrFail(id);
             paciente.nombre = nombre;
             paciente.apellido = apellido;
+            paciente.dni = dni;
+            paciente.fechaDeNacimiento = fechaDeNacimiento;
             paciente.direccion = direccion;
+            paciente.localidad = localidad;
+            paciente.telefono = telefono;
         }catch(e){
             res.status(404).json({ message: 'Paciente no encontrado' });
         }

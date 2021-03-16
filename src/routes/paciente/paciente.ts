@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import PacienteController from '../../controller/PacienteController';
+//import { checkJwt } from '../../middlewares/jwt';
 
 const router = Router();
 

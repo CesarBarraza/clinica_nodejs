@@ -15,6 +15,7 @@ createConnection().then(async () => {
 
     //middlewares
     app.use(cors());
+
     app.use(helmet());
     app.use(express.json());
 
