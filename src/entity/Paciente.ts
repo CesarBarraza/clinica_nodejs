@@ -23,7 +23,7 @@ export class Paciente {
 
     @Column()
     @IsNotEmpty()
-    fechaDeNacimiento: Date;
+    fechaDeNacimiento: string;
 
     @Column()
     @IsNotEmpty()

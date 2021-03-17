@@ -30,11 +30,17 @@ class PacienteController{
     static createPaciente = async(req: Request, res: Response) => {
         const { nombre, apellido, dni, fechaDeNacimiento, direccion, localidad, telefono } = req.body;
         const paciente = new Paciente();
+        
+        const fecha = new Date(fechaDeNacimiento)
+        const dia = fecha.getDay();
+        const mes = fecha.getMonth();
+        const anio = fecha.getFullYear()
 
         paciente.nombre = nombre;
         paciente.apellido = apellido;
         paciente.dni = dni;
-        paciente.fechaDeNacimiento = fechaDeNacimiento;
+        paciente.fechaDeNacimiento = `${dia}/${mes}/${anio}`;
+
         paciente.direccion = direccion;
         paciente.localidad = localidad;
         paciente.telefono = telefono;
